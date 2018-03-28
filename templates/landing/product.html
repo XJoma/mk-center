@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="w3-content w3-section my-slide-main">
+        <img class="mySlides w3-animate-top my-slide" src="{% static 'img/s1.jpg' %}">
+        <img class="mySlides w3-animate-top my-slide" src="{% static 'img/s2.jpg' %}">
+        <img class="mySlides w3-animate-top my-slide" src="{% static 'img/s3.jpg' %}">
+        <img class="mySlides w3-animate-top my-slide" src="{% static 'img/s4.jpg' %}">
+    </div>
+
+    <script>
+        var myIndex = 0;
+        carousel();
+
+        function carousel() {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            myIndex++;
+            if (myIndex > x.length) {
+                myIndex = 1
+            }
+            x[myIndex - 1].style.display = "block";
+            setTimeout(carousel, 5000);
+        }
+    </script>
+
+
+
+
+
+
+    <h1 class="text-center1">
+        Запчасти
+    </h1>
+
+    <div class="container-fluid">
+
+        <div class="col-md-8">
+            {% for product_image in products_images %}
+                {% include 'landing/product_item.html' %}
+            {% empty %}
+                <h4 style="text-align:center;background-color: rgba(255, 255, 255, 0.5);width: 100%; margin-left: 25%">
+                    Пока нет запчасти на этом категории
+                </h4>
+            {% endfor %}
+        </div>
+
+
+        <div class="pagination">
+            <span class="my_paginator">
+                {% if products_images.has_previous %}
+                                        <a href="?page=1" style="color: black">1 sahifaga</a>
+                    <a href="?page=
+
+
+
+                            {{ products_images.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"
+                       class="previous round my_a">&#8249;</a>
+                {% endif %}
+
+                <span class="current"><b style="color: white" class="my-paginator5">
+                    Страница {{ products_images.number }} из {{ products_images.paginator.num_pages }}</b>
+                </span>
+
+                {% if products_images.has_next %}
+                    <a href="?page=
+                       {{ products_images.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"
+                       class="next round my_a">&#8250;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+{% endblock %}

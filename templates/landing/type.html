@@ -1,0 +1,16 @@
+<style>
+    * {
+        color: black;
+    }
+
+</style>
+<a>
+    <div class="product-type">
+        <form action="cat/{{ type.name }}" type="submit">
+            <input type="image" class="img-responsive3" src="{{ type.image.url }}" alt="submit">
+            <input style="width: 100%; height: auto; text-align: center; font-size: x-large; margin-top: -2%" name="q" placeholder=""
+               value='{{ type.name }}' readonly>
+        </form>
+    </div>
+
+</a>

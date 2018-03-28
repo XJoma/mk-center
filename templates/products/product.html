@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <style>
+
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+            background-color: #edffe6;
+        }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: #fff;
+        }
+
+        /* Create an active/current tablink class */
+        .tab button.active {
+            background-color: #fff;
+        }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #edffe6;
+            border-top: none;
+        }
+
+        textarea {
+            width: 400px;
+            height: 80px;
+        }
+
+        #id_name {
+            height: auto;
+            width: 400px;
+            margin-right: 10%;
+            margin-left: 5%;
+        }
+    </style>
+    <div class="container" style="background-color: #edffe6">
+        <div class="row">
+            <div class="col-lg-6">
+                {% for image_item in product.productimage_set.all %}
+                    <div class="product-image-item img-magnifier-container" style="margin: 100px">
+                        <img id="myimage" src="{{ image_item.image.url }}" class="img-responsive" style="width: 100%;">
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-lg-6">
+                <h2 class="text-center" style="margin: 50px">
+                    {{ product.name }}
+                </h2>
+                <div class="">
+                    <h5>
+                        Цена:<br><span style="color: darkred">{{ product.price }} сом</span>
+                    </h5>
+                </div>
+                <h3 style="text-align: center">Описание</h3>
+                <hr>
+                <div class="product-des">
+                    {{ product.description }}
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <form style="width:50%" action="/product/addcomment/{{ product.id }}/" method="post">
+                {% csrf_token %}
+                {{ form.errors }}
+                {{ form }}
+                <input type="submit" value="Комментировать" class="btn btn-dark"
+                       style="margin-left:60%">
+            </form>
+            <h1><b>Комментарии</b></h1>
+            {% for comm in comment %}
+                <hr>
+                <b>{{ comm.name }}</b>
+                <small>    {{ comm.created|timesince }} назад</small><br>
+                <b>{{ comm.comment }}</b><br>
+                <hr>
+            {% empty %}
+                <p style="text-align:center">
+                    <small>Пока без коментариев</small>
+                </p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

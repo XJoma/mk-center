@@ -1,0 +1,59 @@
+<footer class="page-footer center-on-small-only blue-grey lighten-5 pt-0 footer"
+        style="margin-top: 10px;width: 80%;margin-left: 5%">
+
+    <div style="background-color: #424242;position: fixed;left: 0; bottom: 0;width: 100%;color: #ffff62;height: 6%; z-index: 5">
+        <div style="padding-top: 0">
+
+            <h5 style="color: #ffff; text-align: left;margin-top: 0.5%">
+                    <span>
+                        <b style="color: #ffb3b3">Cвяжитесь с нами:  </b>
+                    </span>
+                {% for companiya in companiyas %}
+                      {{ companiya.Tel_Nomer }}{% if companiya == companiya %},  {% endif %}
+                {% endfor %}
+            </h5>
+
+        </div>
+    </div>
+
+    <div class="" style="background-color: white;z-index: -1; text-align: center;border: 5px solid gold">
+        <div class="mt-3">
+            <h2 style="padding: 5%">
+                Место<br> где продаются лучшие, и выгодные, и дешевые по цене автозапчасти.<br> Только один в
+                городе, и это<b> МЫ</b>
+            </h2>
+            <h4 style="width: 80%;margin-left: 10%; text-align: left"><span><b
+                    style="color: #ffc107">Наш контакт  </b></span>
+                <br><b>Электроная Почта:</b>
+                {% for companiya in companiyas %}
+                      {{ companiya.Email }},
+                {% endfor %}
+                <br><b>  Телефон номер: </b>
+                {% for companiya in companiyas %}
+                      {{ companiya.Tel_Nomer }},
+                {% endfor %}
+                <br><b>   Ватсап номер:    </b>
+                {% for companiya in companiyas %}
+                      {{ companiya.Whatsapp_Nomer }},
+                {% endfor %}
+            </h4>
+            <h5 style="margin-top: 3%">Мы находимся
+                {% if user.is_authenticated %}
+                    <span style="float: right"><a href="{% url 'admin' %}">
+                <input class="btn" style="float: right;background-color: darkred;color: white;margin-top: -0.7%"
+                       type="submit"
+                       value="Admin">
+            </a>
+                    </span>
+                {% endif %}
+            </h5>
+
+        </div>
+        {% for place in places %}
+            <iframe src="{{ place.url }}"
+                    width="100%" height="500" frameborder="0" style="border:0;margin-bottom: 40px"
+                    allowfullscreen></iframe>
+        {% endfor %}
+    </div>
+
+</footer>
