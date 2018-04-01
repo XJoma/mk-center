@@ -6,7 +6,7 @@
              src="{% static "img/index2.jpg" %}"/>
     </a>
     <div>
-        <form action="cat/" class="form-inline">
+        <form action="{% url 'all' %}" class="form-inline">
             <input style="width: auto" name="q" class="form-control" placeholder="Поиск..." type="text" value="{{ request.GET.q }}">
             <input type="submit" class="btn btn-secondary" value="Искать">
         </form>

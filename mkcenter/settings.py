@@ -3,6 +3,13 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'gd&6*d903my29%hl)y*6h-knw+ytvbkuymka6loz&%q0xyv884'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -19,7 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
-    'products'
+    'products',
 ]
 
 MIDDLEWARE = [

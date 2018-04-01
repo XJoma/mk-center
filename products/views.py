@@ -2,7 +2,7 @@ from products.models import Product, Comment, Companiya, ProductImage, Place
 from products.forms import CommentForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.core.paginator import *
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
 def product(request, product_id):
@@ -33,14 +33,9 @@ def addcomment(request, id):
 
 
 def category(request, category_name):
-    products_images_list = ProductImage.objects.filter(is_active=True, is_main=True, product__is_active=True).order_by(
-        '-created')
+    products_images_list = ProductImage.objects.filter(product__type__name__contains=category_name)
     companiya = Companiya.objects.all()
     place = Place.objects.all()[0:1]
-
-    query = request.GET.get("q")
-    if query:
-        products_images_list = products_images_list.filter(product__name__icontains=query)
 
     paginator = Paginator(products_images_list, 10)  # Show 25 products per page
 
@@ -69,5 +64,5 @@ def all(request):
     query = request.GET.get("q")
     if query:
         fp = p.filter(product__name__icontains=query)
-
-        return render(request, 'landing/product.html', {'products_images': fp, 'companiyas':companiya, 'places':place})
+        return render(request, 'landing/product.html',
+                      {'products_images': fp, 'companiyas': companiya, 'places': place})

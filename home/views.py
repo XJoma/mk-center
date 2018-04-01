@@ -1,6 +1,6 @@
-from django.core.paginator import *
-from django.shortcuts import *
-from products.models import *
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.shortcuts import render
+from products.models import ProductImage, ProductType, Companiya, Place
 from django.contrib import admin
 
 
@@ -31,20 +31,14 @@ def home(request):
     place = Place.objects.all()[0:1]
 
     products_images_t = ProductImage.objects.filter(is_active=True, is_main=True, product__is_active=True)
-    products_images_boshqa = products_images_t.filter(product__type_id=3)
-    products_images_sirop = products_images_t.filter(product__type_id=2)
-    products_images_tabletka = products_images_t.filter(product__type_id=1)
     context = {
         "products_images": products_images,
         "products_images_t": products_images_t,
         "companiyas": companiya,
         "places": place,
-        "products_images_boshqa": products_images_boshqa,
-        "products_images_sirop": products_images_sirop,
-        "products_images_tabletka": products_images_tabletka,
         "productType": productType,
     }
-    return render(request, 'landing/home.html', context, locals())
+    return render(request, 'landing/home.html', context)
 
 
 def my_admin(request):
